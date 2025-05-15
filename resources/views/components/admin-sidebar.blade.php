@@ -6,11 +6,11 @@
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Main</li>
-        <li class="dropdown active">
+        <li class="dropdown {{ Request::routeIs('dashboard') ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class="nav-link"><i class="fas fa-tv"></i><span>Dashboard</span></a>
         </li>
-        <li class="dropdown">
-            <a href="index.html" class="nav-link"><i class="fas fa-building"></i><span>Company</span></a>
+        <li class="dropdown {{ Request::routeIs('company*') ? 'active' : '' }}">
+            <a href="{{ route('company.index') }}" class="nav-link"><i class="fas fa-building"></i><span>Company</span></a>
         </li>
         <li class="dropdown">
             <a href="index.html" class="nav-link"><i class="fas fa-tags"></i><span>Category</span></a>
