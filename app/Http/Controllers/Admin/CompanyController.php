@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -12,7 +13,10 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        return view('admin.company.index');
+        $company = Company::first();
+        return view('admin.company.index',[
+            'company' => $company
+        ]);
     }
 
     /**
@@ -20,7 +24,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.company.create');
     }
 
     /**
@@ -28,7 +32,28 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'logo' => 'required|image|max:2048',
+        ]);
+
+        $company = new Company();
+        $company->name = $request->name;
+        $company->email = $request->email;
+        $company->phone = $request->phone;
+        $company->youtube = $request->youtube;
+        $company->facebook = $request->facebook;
+        $company->instagram = $request->instagram;
+        $file = $request->logo;
+        if($file){
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $file->move('images', $file_name);
+            $company->logo = $file_name;
+        }
+        $company->save();
+        return redirect()->route('company.index');
     }
 
     /**
@@ -44,7 +69,10 @@ class CompanyController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        return view('admin.company.edit',[
+            'company' => $company
+        ]);
     }
 
     /**
@@ -52,7 +80,28 @@ class CompanyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'logo' => 'required|image|max:2048',
+        ]);
+
+        $company = new Company();
+        $company->name = $request->name;
+        $company->email = $request->email;
+        $company->phone = $request->phone;
+        $company->youtube = $request->youtube;
+        $company->facebook = $request->facebook;
+        $company->instagram = $request->instagram;
+        $file = $request->logo;
+        if ($file) {
+            $file_name = time() . '.' . $file->getClientOriginalExtension();
+            $file->move('images', $file_name);
+            $company->logo = $file_name;
+        }
+        $company->update();
+        return redirect()->route('company.index');
     }
 
     /**
@@ -60,6 +109,8 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        $company->delete();
+        return redirect()->route('company.create');
     }
 }

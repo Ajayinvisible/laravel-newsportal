@@ -4,8 +4,10 @@
             <div class="card-body">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb bg-primary text-white-all">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('company.index') }}"><i class="far fa-file"></i> Company</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i
+                                    class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('company.index') }}"><i class="far fa-file"></i>
+                                Company</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-list"></i> Index</li>
                     </ol>
                 </nav>
@@ -14,7 +16,9 @@
                 <div class="card">
                     <div class="card-header justify-content-between align-items-center">
                         <h4>Company Details</h4>
+                        @if(!$company)
                         <a href="{{ route('company.create') }}" class="btn btn-primary">Add New</a>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -30,21 +34,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if ($company)
+
                                     <tr>
+                                        <td> 1 </td>
+                                        <td>{{ $company->name }}</td>
                                         <td>
-                                            1
+                                            @if ($company->logo)
+                                            <img alt="image" src="{{ asset('/images/'. $company->logo) }}" width="35">
+                                            @endif
                                         </td>
-                                        <td>News Portal</td>
                                         <td>
-                                            <img alt="image" src="/assets/img/users/user-5.png" width="35">
-                                        </td>
-                                        <td>
-                                            admin@gmail.com
+                                            {{ $company->email }}
                                         </td>
 
-                                        <td>9869052953</td>
-                                        <td><a href="#" class="btn btn-primary">Detail</a></td>
+                                        <td>{{ $company->phone }}</td>
+                                        <td>
+                                            <form action="{{ route('company.destroy', $company->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('delete')
+                                                <a href="{{ route('company.edit', $company->id) }}"
+                                                    class="btn btn-primary">Edit</a>
+                                                <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                            </form>
+                                        </td>
                                     </tr>
+                                    @else
+                                    <p class="text-danger">No Record Found</p>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
