@@ -12,8 +12,8 @@
         <li class="dropdown {{ Request::routeIs('company*') ? 'active' : '' }}">
             <a href="{{ route('company.index') }}" class="nav-link"><i class="fas fa-building"></i><span>Company</span></a>
         </li>
-        <li class="dropdown">
-            <a href="index.html" class="nav-link"><i class="fas fa-tags"></i><span>Category</span></a>
+        <li class="dropdown {{ Request::routeIs('category*') ? 'active' : '' }}">
+            <a href="{{ route('category.index') }}" class="nav-link"><i class="fas fa-tags"></i><span>Category</span></a>
         </li>
         <li class="dropdown">
             <a href="index.html" class="nav-link"><i class="fas fa-newspaper"></i><span>Article</span></a>
