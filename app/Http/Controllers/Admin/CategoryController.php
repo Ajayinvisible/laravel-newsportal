@@ -72,6 +72,7 @@ class CategoryController extends Controller
         $category->slug = Str::slug($request->title);
         $category->meta_keywords = $request->meta_keywords;
         $category->meta_description = $request->meta_description;
+        $category->status = $request->status;
         $category->save();
         return redirect()->route('category.index');
     }

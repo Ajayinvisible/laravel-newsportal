@@ -19,14 +19,27 @@
                         <a href="{{ route('category.index') }}" class="btn btn-primary">Go back</a>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('category.update',$category->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('category.update',$category->id) }}" method="post"
+                            enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="mb-3">
                                         <label for="title" class="form-label">Enter Category Title</label>
-                                        <input type="text" name="title" id="title" value="{{ $category->title }}" class="form-control">
+                                        <input type="text" name="title" id="title" value="{{ $category->title }}"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Status</label>
+                                        <select name="status" id="status" class="form-control">
+                                            <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>Active
+                                            </option>
+                                            <option value="0" {{ $category->status == 0 ? 'selected' : '' }}>Inactive
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
