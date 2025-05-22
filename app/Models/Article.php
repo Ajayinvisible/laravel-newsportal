@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Category extends Model
+class Article extends Model
 {
     /**
-     * The articles that belong to the category
+     * The category that belong to the Article
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function articles(): BelongsToMany
+    public function categories(): BelongsToMany
     {
-        return $this->belongsToMany(Article::class);
+        return $this->belongsToMany(Category::class);
     }
 }

@@ -6,19 +6,17 @@
                     <ol class="breadcrumb bg-primary text-white-all">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}"><i
                                     class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('company.index') }}"><i class="far fa-file"></i>
-                                Company</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-list"></i> Index</li>
+                        <li class="breadcrumb-item"><a href="{{ route('article.index') }}"><i class="far fa-file"></i>
+                                Article</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-list"></i> Create</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-12">
                 <div class="card">
                     <div class="card-header justify-content-between align-items-center">
-                        <h4>Company Details</h4>
-                        @if (!$company)
-                            <a href="{{ route('company.create') }}" class="btn btn-primary">Add New</a>
-                        @endif
+                        <h4>Add Article</h4>
+                        <a href="{{ route('article.create') }}" class="btn btn-primary">Add New Article</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -26,44 +24,46 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Company Name</th>
-                                        <th>Logo</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Action</th>
+                                        <th>Title</th>
+                                        <th>Slug</th>
+                                        <th>Image</th>
+                                        <th>Status</th>
+                                        <th width="12%">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if ($company)
-
+                                    @foreach ($articles as $key => $article)
                                         <tr>
-                                            <td> 1 </td>
-                                            <td>{{ $company->name }}</td>
+                                            <td>{{ ++$key }}</td>
+                                            <td>{{ $article->title }}</td>
+                                            <td>{{ $article->slug }}</td>
                                             <td>
-                                                @if ($company->logo)
-                                                    <img alt="image" src="{{ asset('/images/' . $company->logo) }}"
-                                                        width="35">
+                                                @if ($article->image)
+                                                    <img alt="image" src="{{ asset('/article/' . $article->image) }}"
+                                                        width="80px" height="60px" class="object-cover">
                                                 @endif
                                             </td>
                                             <td>
-                                                {{ $company->email }}
+                                                @if ($article->status == 'approved')
+                                                    <div class="badge badge-success">Approved</div>
+                                                @elseif ($article->status == 'pending')
+                                                    <div class="badge badge-warning">Pending</div>
+                                                @else
+                                                    <div class="badge badge-danger">Rejected</div>
+                                                @endif
                                             </td>
-
-                                            <td>{{ $company->phone }}</td>
                                             <td>
-                                                <form action="{{ route('company.destroy', $company->id) }}"
+                                                <form action="{{ route('article.destroy', $article->id) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('delete')
-                                                    <a href="{{ route('company.edit', $company->id) }}"
+                                                    <a href="{{ route('article.edit', $article->id) }}"
                                                         class="btn btn-primary">Edit</a>
                                                     <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>
-                                    @else
-                                        <p class="text-danger">No Record Found</p>
-                                    @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
