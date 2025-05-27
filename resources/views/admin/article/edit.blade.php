@@ -8,7 +8,7 @@
                                     class="fas fa-tachometer-alt"></i> Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{ route('article.index') }}"><i class="far fa-file"></i>
                                 Article</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-list"></i> Create</li>
+                        <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-list"></i> Edit</li>
                     </ol>
                 </nav>
             </div>

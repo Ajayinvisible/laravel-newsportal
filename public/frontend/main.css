@@ -1,0 +1,24 @@
+:root{
+    --primary: #173289;
+    --secondary: #78c346;
+    --ascent: #e13833;
+    --text: #333;
+    --text-light: #666;
+    --bg: #f1f2f3;
+}
+
+.container {
+    width: 86%;
+    margin: auto;
+}
+
+body{
+    font-family: "Lato", sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    background-color: var(--bg);
+}
+
+.title{
+    font-family: "Montserrat", sans-serif;
+}
